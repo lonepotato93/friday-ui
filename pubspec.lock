@@ -70,6 +70,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_iconly:
+    dependency: "direct main"
+    description:
+      name: flutter_iconly
+      sha256: fabcbd59d93666aed6b0f7b4285776686cf60d07447d4afbffee92635d5ed785
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -78,8 +86,16 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "8239210dd68bee6b0577aa4a090890342d04a136ce1c81f98ee513fc0ce891de"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.9.3"
   flutter_svg:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_svg
       sha256: d44bf546b13025ec7353091516f6881f1d4c633993cb109c3916c3a0159dadf1
@@ -107,14 +123,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
-  iconly:
-    dependency: "direct main"
-    description:
-      name: iconly
-      sha256: "22f16dd28984d232891299ead9d9b75ae5a32b4d9cdf63e8e574f1ceb11dcbd9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   leak_tracker:
     dependency: transitive
     description:

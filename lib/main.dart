@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/home/home_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'screens/home/bulletin_screen.dart';
 import 'theme/app_theme.dart';
 
 void main() {
@@ -11,11 +12,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Friday UI',
-      theme: AppTheme.lightTheme,
-      home: const HomeScreen(),
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(414, 896), // Standard design size for mobile apps
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'Friday UI',
+          theme: AppTheme.lightTheme,
+          home: const BulletinScreen(),
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }

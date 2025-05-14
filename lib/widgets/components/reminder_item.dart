@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../constants/colors.dart';
+import '../../theme/design_tokens.dart';
 
 class ReminderItem extends StatelessWidget {
   final String imageUrl;
@@ -24,111 +24,107 @@ class ReminderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: DesignTokens.spacing16),
       child: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(2),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Image.network(
-              imageUrl,
-              width: 48,
-              height: 48,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: 12),
+          const SizedBox(width: DesignTokens.spacing12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (subtitle != null)
-                  Text(
-                    subtitle!,
-                    style: const TextStyle(
-                      color: AppColors.textPrimary,
-                      fontSize: 14,
-                      letterSpacing: 0.4,
-                    ),
-                  ),
-                Row(
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 16,
-                        height: 18/16,
-                        letterSpacing: 0.2,
-                      ),
-                    ),
-                    if (tag != null) ...[
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.lightGreen,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Text(
-                          tag!,
-                          style: const TextStyle(
-                            color: AppColors.textPrimary,
-                            fontSize: 10,
-                            letterSpacing: 0.4,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: dotColor,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      time,
-                      style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 14,
-                        height: 16/14,
-                      ),
-                    ),
-                  ],
-                ),
+                        _buildImage(),
+                if (subtitle != null) _buildSubtitle(),
+                _buildTitleRow(),
+                const SizedBox(height: DesignTokens.spacing4),
+                _buildTimeRow(),
               ],
             ),
           ),
-          const SizedBox(width: 12),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: Center(
-              child: Text(
-                duration,
-                style: const TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 12,
-                  height: 20/12,
-                  letterSpacing: 0.4,
-                ),
+          const SizedBox(width: DesignTokens.spacing12),
+          _buildDuration(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImage() {
+    return Container(
+      padding: const EdgeInsets.all(DesignTokens.spacing4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(DesignTokens.cardBorderRadius),
+      ),
+      child: Image.network(imageUrl, width: 48, height: 48, fit: BoxFit.cover),
+    );
+  }
+
+  Widget _buildSubtitle() {
+    return Text(
+      subtitle!,
+      style: DesignTokens.body2.copyWith(letterSpacing: 0.4),
+    );
+  }
+
+  Widget _buildTitleRow() {
+    return Row(
+      children: [
+        Text(
+          title,
+          style: DesignTokens.body1.copyWith(
+            height: 18 / 16,
+            letterSpacing: 0.2,
+          ),
+        ),
+        if (tag != null) ...[
+          const SizedBox(width: DesignTokens.spacing8),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: DesignTokens.spacing8,
+              vertical: DesignTokens.spacing4,
+            ),
+            decoration: BoxDecoration(
+              color: DesignTokens.accent.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Text(
+              tag!,
+              style: DesignTokens.body2.copyWith(
+                fontSize: 10,
+                letterSpacing: 0.4,
               ),
             ),
           ),
         ],
+      ],
+    );
+  }
+
+  Widget _buildTimeRow() {
+    return Row(
+      children: [
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: DesignTokens.spacing8),
+        Text(time, style: DesignTokens.body2.copyWith(height: 16 / 14)),
+      ],
+    );
+  }
+
+  Widget _buildDuration() {
+    return SizedBox(
+      width: 40,
+      height: 40,
+      child: Center(
+        child: Text(
+          duration,
+          style: DesignTokens.body2.copyWith(
+            fontSize: 12,
+            height: 20 / 12,
+            letterSpacing: 0.4,
+          ),
+        ),
       ),
     );
   }
