@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../theme/design_tokens.dart';
 
 class ReminderItem extends StatelessWidget {
@@ -24,23 +26,24 @@ class ReminderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: DesignTokens.spacing16),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(width: DesignTokens.spacing12),
+          SizedBox(width: 12.w),
+          _buildImage(),
+          SizedBox(width: 12.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                        _buildImage(),
                 if (subtitle != null) _buildSubtitle(),
                 _buildTitleRow(),
-                const SizedBox(height: DesignTokens.spacing4),
+                SizedBox(height: 4.h),
                 _buildTimeRow(),
               ],
             ),
           ),
-          const SizedBox(width: DesignTokens.spacing12),
+          SizedBox(width: 12.w),
           _buildDuration(),
         ],
       ),
@@ -49,11 +52,15 @@ class ReminderItem extends StatelessWidget {
 
   Widget _buildImage() {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.spacing4),
+      padding: EdgeInsets.all(4.r),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(DesignTokens.cardBorderRadius),
+        borderRadius: BorderRadius.circular(12.r),
       ),
-      child: Image.network(imageUrl, width: 48, height: 48, fit: BoxFit.cover),
+      child: SvgPicture.asset(
+        'assets/icon/food.svg',
+        width: 48.w,
+        height: 48.h,
+      ),
     );
   }
 
@@ -75,20 +82,20 @@ class ReminderItem extends StatelessWidget {
           ),
         ),
         if (tag != null) ...[
-          const SizedBox(width: DesignTokens.spacing8),
+          SizedBox(width: 8.w),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: DesignTokens.spacing8,
-              vertical: DesignTokens.spacing4,
+            padding: EdgeInsets.symmetric(
+              horizontal: 8.w,
+              vertical: 4.h,
             ),
             decoration: BoxDecoration(
               color: DesignTokens.accent.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
             ),
             child: Text(
               tag!,
               style: DesignTokens.body2.copyWith(
-                fontSize: 10,
+                fontSize: 10.sp,
                 letterSpacing: 0.4,
               ),
             ),
@@ -102,11 +109,11 @@ class ReminderItem extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 8,
-          height: 8,
+          width: 8.w,
+          height: 8.h,
           decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
         ),
-        const SizedBox(width: DesignTokens.spacing8),
+        SizedBox(width: 8.w),
         Text(time, style: DesignTokens.body2.copyWith(height: 16 / 14)),
       ],
     );
@@ -114,13 +121,13 @@ class ReminderItem extends StatelessWidget {
 
   Widget _buildDuration() {
     return SizedBox(
-      width: 40,
-      height: 40,
+      width: 40.w,
+      height: 40.h,
       child: Center(
         child: Text(
           duration,
           style: DesignTokens.body2.copyWith(
-            fontSize: 12,
+            fontSize: 12.sp,
             height: 20 / 12,
             letterSpacing: 0.4,
           ),
