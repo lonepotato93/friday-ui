@@ -23,7 +23,7 @@ class InputDesign extends StatelessWidget {
               SizedBox(height: 12.h),
               const ReminderCardList(),
               SizedBox(height: 12.h),
-              // const BulletinTabBar(),
+              const BulletinTabBar(),
               // SizedBox(height: 16.h),
               // Padding(
               //   padding: EdgeInsets.symmetric(horizontal: 16.w),
