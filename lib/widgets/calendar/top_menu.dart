@@ -29,19 +29,23 @@ class TopMenu extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  width: 24.w,
-                  height: 24.h,
+                  width: 24,
+                  height: 24,
                   child: Stack(
                     children: [
                       Positioned(
                         left: 0,
                         top: 0,
                         child: Container(
-                          width: 24.w,
-                          height: 24.h,
+                          width: 24,
+                          height: 24,
                           child: Stack(
                             children: [
-                              Icon(IconlyLight.arrowLeft2)
+                              const Icon(
+                                IconlyLight.arrowLeft2,
+                                color: Color(0xFFFEFEFE),
+                                size: 24,
+                              )
                             ],
                           ),
                         ),
