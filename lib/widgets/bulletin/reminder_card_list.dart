@@ -23,14 +23,14 @@ class ReminderCardList extends StatelessWidget {
         title: 'Sticky Reminders',
         reminders: [
           ReminderItem(
-            imageUrl: 'assets/icon/food.svg',
+            imageUrl: 'assets/icon/clock.svg',
             title: 'Burger Bonanza',
             time: '8:00 AM - 9:00AM',
             duration: '2H',
             dotColor: AppColors.accent,
           ),
           ReminderItem(
-            imageUrl: 'assets/icon/jk.svg',
+            imageUrl: 'assets/icon/clock.svg',
             subtitle: 'JK',
             title: 'BTS Concert',
             time: '2:00 PM - 4:00 PM',
@@ -39,7 +39,7 @@ class ReminderCardList extends StatelessWidget {
             tag: 'OK',
           ),
           ReminderItem(
-            imageUrl: 'assets/icon/gym.svg',
+            imageUrl: 'assets/icon/clock.svg',
             subtitle: 'Jane',
             title: 'Gym Time',
             time: '8:00 AM - 9:00AM',
@@ -52,7 +52,7 @@ class ReminderCardList extends StatelessWidget {
         title: 'Key Events',
         reminders: [
           ReminderItem(
-            imageUrl: 'assets/icon/food.svg',
+            imageUrl: 'assets/icon/clock.svg',
             title: 'Team Meeting',
             time: '10:00 AM - 11:00AM',
             duration: '1D',
@@ -96,19 +96,24 @@ class ReminderCardList extends StatelessWidget {
       height: 300.h, // Adjusted height
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 16.w), // Added horizontal padding for the list
+        padding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+        ), // Added horizontal padding for the list
         child: Row(
-          children: reminderCardsData.map((data) {
-            return Padding(
-              padding: EdgeInsets.only(right: 12.w), // Spacing between cards
-              child: BulletinReminderCard(
-                title: data.title,
-                reminders: data.reminders,
-              ),
-            );
-          }).toList(),
+          children:
+              reminderCardsData.map((data) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    right: 12.w,
+                  ), // Spacing between cards
+                  child: BulletinReminderCard(
+                    title: data.title,
+                    reminders: data.reminders,
+                  ),
+                );
+              }).toList(),
         ),
       ),
     );
   }
-} 
+}

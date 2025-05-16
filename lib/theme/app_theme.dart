@@ -2,28 +2,36 @@ import 'package:flutter/material.dart';
 import 'design_tokens.dart';
 
 class AppTheme {
-  static ThemeData get lightTheme {
+  static const gradient = BoxDecoration(
+    gradient: LinearGradient(
+      begin: Alignment(0.50, -0.00),
+      end: Alignment(0.50, 0.71),
+      colors: [Color(0xFF1A1A1A), Color(0xFF2C3547)],
+    ),
+  );
+
+  static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
-      colorScheme: ColorScheme.light(
+      colorScheme: ColorScheme.dark(
         primary: DesignTokens.primary,
         secondary: DesignTokens.accent,
-        background: DesignTokens.backgroundColor,
-        surface: DesignTokens.white,
+        background: const Color(0xFF1A1A1A),
+        surface: const Color(0xFF2C3547),
         error: DesignTokens.red,
         onPrimary: DesignTokens.white,
         onSecondary: DesignTokens.white,
-        onBackground: DesignTokens.textPrimary,
-        onSurface: DesignTokens.textPrimary,
+        onBackground: DesignTokens.white,
+        onSurface: DesignTokens.white,
         onError: DesignTokens.white,
       ),
-      scaffoldBackgroundColor: DesignTokens.backgroundColor,
+      scaffoldBackgroundColor: Colors.transparent,
       appBarTheme: const AppBarTheme(
-        backgroundColor: DesignTokens.backgroundColor,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         titleTextStyle: DesignTokens.headline2,
         iconTheme: IconThemeData(
-          color: DesignTokens.textPrimary,
+          color: DesignTokens.white,
           size: DesignTokens.iconSize,
         ),
       ),
@@ -32,9 +40,9 @@ class AppTheme {
         displayMedium: DesignTokens.headline2,
         bodyLarge: DesignTokens.body1,
         bodyMedium: DesignTokens.body2,
-      ),
+      ).apply(bodyColor: DesignTokens.white, displayColor: DesignTokens.white),
       cardTheme: CardTheme(
-        color: DesignTokens.white,
+        color: const Color(0xFF2C3547),
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(DesignTokens.cardBorderRadius),
@@ -52,7 +60,7 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: DesignTokens.white,
+        fillColor: const Color(0xFF2C3547),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(DesignTokens.inputBorderRadius),
           borderSide: BorderSide.none,

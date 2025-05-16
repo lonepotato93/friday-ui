@@ -14,29 +14,38 @@ class InputDesign extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.backgroundColor,
+      height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 0),
-          child: Column(
-            children: [
-              const MenuTopBar(),
-              SizedBox(height: 12.h),
-              const ReminderCardList(),
-              SizedBox(height: 12.h),
-              const BulletinTabBar(),
-              // SizedBox(height: 16.h),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 16.w),
-              //   child: SocialPost(
-              //     username: 'graceful_lee',
-              //     timeAgo: '1hr',
-              //     content: 'Hey, anybody free? Have 2 hours free time in between my class. Maybe we can have early dinner?',
-              //     tag: 'FreeTime',
-              //     images: ['https://cdn.builder.io/api/v1/image/assets/TEMP/b5a2f230a524e334aea41aa3731a183f33e231df'],
-              //   ),
-              // ),
-            ],
-          ),
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(height: 16.h),
+            const MenuTopBar(),
+            SizedBox(height: 12.h),
+            const ReminderCardList(),
+            SizedBox(height: 12.h),
+            const BulletinTabBar(),
+            SizedBox(height: 16.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: SocialPost(
+                username: 'graceful_lee',
+                timeAgo: '1hr',
+                content:
+                    'Hey, anybody free? Have 2 hours free time in between my class. Maybe we can have early dinner?',
+                tag: 'FreeTime',
+                images: [
+                  'https://cdn.builder.io/api/v1/image/assets/TEMP/b5a2f230a524e334aea41aa3731a183f33e231df',
+                ],
+                invitedUsers: ['John Doe', 'Jane Smith'],
+                availableTimes: [
+                  DateTime.now(),
+                  DateTime.now().add(Duration(hours: 2)),
+                ],
+              ),
+            ),
+            SizedBox(height: 16.h), // Add bottom padding
+          ],
         ),
       ),
     );

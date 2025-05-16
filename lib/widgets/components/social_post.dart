@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../theme/design_tokens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../constants/colors.dart';
 
 class SocialPost extends StatelessWidget {
   final String username;
@@ -7,6 +8,8 @@ class SocialPost extends StatelessWidget {
   final String content;
   final String? tag;
   final List<String> images;
+  final List<String> invitedUsers;
+  final List<DateTime> availableTimes;
 
   const SocialPost({
     Key? key,
@@ -15,167 +18,441 @@ class SocialPost extends StatelessWidget {
     required this.content,
     this.tag,
     required this.images,
+    required this.invitedUsers,
+    required this.availableTimes,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(DesignTokens.spacing16),
-      decoration: BoxDecoration(
-        color: DesignTokens.white,
-        borderRadius: BorderRadius.circular(DesignTokens.cardBorderRadius),
-        boxShadow: DesignTokens.cardShadow,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(),
-          const SizedBox(height: DesignTokens.spacing12),
-          _buildContent(),
-          if (images.isNotEmpty) ...[
-            const SizedBox(height: DesignTokens.spacing12),
-            _buildImageGallery(),
+      width: 398.w,
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHeader(),
+            SizedBox(height: 12.h),
+            _buildContent(),
+            if (images.isNotEmpty) ...[
+              SizedBox(height: 12.h),
+              _buildImageGallery(),
+            ],
+            SizedBox(height: 12.h),
+            _buildAvailableTimes(),
+            SizedBox(height: 12.h),
+            _buildCalendarLink(),
+            SizedBox(height: 12.h),
+            _buildInvitedUsers(),
+            SizedBox(height: 12.h),
+            _buildActionButtons(),
           ],
-        ],
+        ),
       ),
     );
   }
 
   Widget _buildHeader() {
-    return Row(
-      children: [
-        Icon(Icons.calendar_today, size: 18, color: DesignTokens.textPrimary),
-        const SizedBox(width: DesignTokens.spacing4),
-        Text(
-          username,
-          style: DesignTokens.body1.copyWith(
-            letterSpacing: 0.2,
-            height: 18 / 16,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            timeAgo,
-            style: DesignTokens.body2.copyWith(
-              color: DesignTokens.textSecondary,
-              height: 16 / 14,
+    return Container(
+      width: double.infinity,
+      height: 24.h,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: double.infinity,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 18.w,
+                  height: 18.h,
+                  child: Icon(
+                    Icons.calendar_today,
+                    size: 18.sp,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                SizedBox(width: 4.w),
+                Text(
+                  username,
+                  style: TextStyle(
+                    color: const Color(0xFF263238),
+                    fontSize: 16.sp,
+                    fontFamily: 'Lexend',
+                    fontWeight: FontWeight.w400,
+                    height: 1.12.h,
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ],
             ),
-            textAlign: TextAlign.right,
           ),
-        ),
-        const SizedBox(width: DesignTokens.spacing8),
-        Icon(
-          Icons.more_vert,
-          size: DesignTokens.iconSize,
-          color: DesignTokens.textSecondary,
-        ),
-      ],
+          Expanded(
+            child: Container(
+              height: double.infinity,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    timeAgo,
+                    style: TextStyle(
+                      color: const Color(0xFF6C757D),
+                      fontSize: 14.sp,
+                      fontFamily: 'Lexend',
+                      fontWeight: FontWeight.w300,
+                      height: 1.14.h,
+                    ),
+                  ),
+                  Container(
+                    width: 24.w,
+                    height: 24.h,
+                    padding: EdgeInsets.all(4.r),
+                    child: Icon(
+                      Icons.more_vert,
+                      size: 16.sp,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildContent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              'Hey I\'m Free',
-              style: DesignTokens.body1.copyWith(
-                color: DesignTokens.textSecondary,
-                letterSpacing: 0.2,
-                height: 18 / 16,
+    return Container(
+      width: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Hey I\'m Free',
+                style: TextStyle(
+                  color: const Color(0xFF6C757D),
+                  fontSize: 16.sp,
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w400,
+                  height: 1.12.h,
+                  letterSpacing: 0.2,
+                ),
               ),
-            ),
-            const SizedBox(width: DesignTokens.spacing8),
-            if (tag != null)
+              SizedBox(width: 8.w),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DesignTokens.spacing8,
-                  vertical: DesignTokens.spacing4,
-                ),
-                decoration: BoxDecoration(
-                  color: DesignTokens.accent.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(
-                    DesignTokens.inputBorderRadius,
+                width: 66.w,
+                height: 24.h,
+                decoration: ShapeDecoration(
+                  color: const Color(0xFFEEEBE2),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.r),
                   ),
                 ),
-                child: Text(
-                  tag!,
-                  style: DesignTokens.body2.copyWith(
-                    fontSize: 12,
-                    height: 20 / 12,
-                    letterSpacing: 0.4,
+                child: Center(
+                  child: Text(
+                    'FreeTime',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: const Color(0xFF263238),
+                      fontSize: 12.sp,
+                      fontFamily: 'Lexend',
+                      fontWeight: FontWeight.w500,
+                      height: 1.67,
+                      letterSpacing: 0.4,
+                    ),
                   ),
                 ),
               ),
-          ],
-        ),
-        const SizedBox(height: DesignTokens.spacing4),
-        Text(content, style: DesignTokens.body2.copyWith(height: 16 / 14)),
-      ],
+            ],
+          ),
+          SizedBox(height: 4.h),
+          Text(
+            content,
+            style: TextStyle(
+              color: const Color(0xFF263238),
+              fontSize: 14.sp,
+              fontFamily: 'Lexend',
+              fontWeight: FontWeight.w300,
+              height: 1.14.h,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildImageGallery() {
-    return Stack(
-      children: [
-        Image.network(
-          images[0],
-          width: double.infinity,
-          height: 208,
-          fit: BoxFit.cover,
-        ),
-        Positioned(
-          top: DesignTokens.spacing8,
-          right: DesignTokens.spacing16,
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: DesignTokens.spacing4,
-            ),
+    return Container(
+      width: double.infinity,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(),
+      child: Stack(
+        children: [
+          Container(
+            height: 208.h,
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(
-                DesignTokens.inputBorderRadius,
+              image: DecorationImage(
+                image: NetworkImage(images[0]),
+                fit: BoxFit.cover,
               ),
             ),
+          ),
+          Positioned(
+            right: 16.w,
+            top: 6.h,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              decoration: ShapeDecoration(
+                color: Colors.black.withOpacity(0.1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+              ),
+              child: Text(
+                '1/${images.length}',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color(0xFFFEFEFE),
+                  fontSize: 12.sp,
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w500,
+                  height: 1.67.h,
+                  letterSpacing: 0.4,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 8.h,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                images.length,
+                (index) => Container(
+                  width: 6.w,
+                  height: 6.h,
+                  margin: EdgeInsets.symmetric(horizontal: 4.w),
+                  decoration: ShapeDecoration(
+                    color:
+                        index == 0
+                            ? const Color(0xFFFEFEFE)
+                            : const Color(0xFFFEFEFE).withOpacity(0.7),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(360.r),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAvailableTimes() {
+    return Column(
+      children:
+          availableTimes.map((time) {
+            return Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(bottom: 8.h),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Icon(Icons.calendar_today, size: 20.sp),
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: Wrap(
+                            spacing: 8.w,
+                            runSpacing: 8.h,
+                            children: [
+                              Text(
+                                time.toString(),
+                                style: TextStyle(
+                                  color: const Color(0xFF6C757D),
+                                  fontSize: 14.sp,
+                                  fontFamily: 'Lexend',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.14.h,
+                                ),
+                              ),
+                              Text(
+                                '|',
+                                style: TextStyle(
+                                  color: const Color(0xFF6C757D),
+                                  fontSize: 14.sp,
+                                  fontFamily: 'Lexend',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.14.h,
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    width: 8.w,
+                                    height: 8.h,
+                                    decoration: ShapeDecoration(
+                                      color: const Color(0xFF3EC2B2),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          8.r,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 4.w),
+                                  Text(
+                                    '4:00 PM - 5:00 PM',
+                                    style: TextStyle(
+                                      color: const Color(0xFF6C757D),
+                                      fontSize: 14.sp,
+                                      fontFamily: 'Lexend',
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.14.h,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 95.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [_buildActionButton(), _buildActionButton()],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+    );
+  }
+
+  Widget _buildActionButton() {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+        decoration: ShapeDecoration(
+          color: const Color(0xFFEEEBE2),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: const Color(0xFFFFC727)),
+            borderRadius: BorderRadius.circular(24.r),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCalendarLink() {
+    return Container(
+      width: double.infinity,
+      clipBehavior: Clip.antiAlias,
+      decoration: ShapeDecoration(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.calendar_today, size: 20.sp),
+          SizedBox(width: 12.w),
+          Expanded(
             child: Text(
-              '1/${images.length}',
-              style: DesignTokens.body2.copyWith(
-                color: DesignTokens.white,
-                fontSize: 12,
-                height: 20 / 12,
+              'http://sample.info/maestro#calendar',
+              style: TextStyle(
+                color: const Color(0xFF6C757D),
+                fontSize: 14.sp,
+                fontFamily: 'Lexend',
+                fontWeight: FontWeight.w400,
+                height: 1.14.h,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInvitedUsers() {
+    return Container(
+      width: double.infinity,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 88.w,
+            height: 24.h,
+            child: Text(
+              'Who\'s Invited',
+              style: TextStyle(
+                color: const Color(0xFF263238),
+                fontSize: 12.sp,
+                fontFamily: 'Lexend',
+                fontWeight: FontWeight.w500,
+                height: 1.67,
                 letterSpacing: 0.4,
               ),
             ),
           ),
-        ),
-        Positioned(
-          bottom: DesignTokens.spacing8,
-          left: 0,
-          right: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              images.length,
-              (index) => Container(
-                width: 6,
-                height: 6,
-                margin: const EdgeInsets.symmetric(
-                  horizontal: DesignTokens.spacing4,
-                ),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      index == 0
-                          ? DesignTokens.white
-                          : DesignTokens.white.withOpacity(0.7),
+          Row(
+            children: [
+              Text(
+                invitedUsers.join(', '),
+                style: TextStyle(
+                  color: const Color(0xFF0065FF),
+                  fontSize: 12.sp,
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w500,
+                  height: 1.67.h,
+                  letterSpacing: 0.4,
                 ),
               ),
-            ),
+              Icon(Icons.arrow_forward_ios, size: 16.sp),
+            ],
           ),
-        ),
-      ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Container(
+      width: double.infinity,
+      height: 32.h,
+      child: Row(
+        children: [
+          Icon(Icons.thumb_up_outlined, size: 24.sp),
+          SizedBox(width: 12.w),
+          Icon(Icons.comment_outlined, size: 24.sp),
+          SizedBox(width: 12.w),
+          Icon(Icons.share_outlined, size: 24.sp),
+        ],
+      ),
     );
   }
 }

@@ -39,21 +39,22 @@ class BulletinReminderCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(IconlyLight.arrowRight2, color: AppColors.textSecondary, size: 20.sp),
+              Icon(
+                IconlyLight.arrowRight2,
+                color: AppColors.textSecondary,
+                size: 20.sp,
+              ),
             ],
           ),
           SizedBox(height: 12.h),
           ...List.generate(reminders.length, (index) {
             final isLast = index == reminders.length - 1;
             return Column(
-              children: [
-                reminders[index],
-                if (!isLast) SizedBox(height: 16.h),
-              ],
+              children: [reminders[index], if (!isLast) SizedBox(height: 16.h)],
             );
           }),
         ],
       ),
     );
   }
-} 
+}

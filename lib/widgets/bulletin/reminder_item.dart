@@ -53,9 +53,7 @@ class ReminderItem extends StatelessWidget {
   Widget _buildImage() {
     return Container(
       padding: EdgeInsets.all(4.r),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
       child: SvgPicture.asset(
         'assets/icon/food.svg',
         width: 48.w,
@@ -84,10 +82,7 @@ class ReminderItem extends StatelessWidget {
         if (tag != null) ...[
           SizedBox(width: 8.w),
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 8.w,
-              vertical: 4.h,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
             decoration: BoxDecoration(
               color: DesignTokens.accent.withOpacity(0.1),
               borderRadius: BorderRadius.circular(16.r),

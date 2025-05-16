@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:friday_ui/screens/home/calendar_day_view_screen.dart';
 import 'screens/home/bulletin_screen.dart';
 import 'theme/app_theme.dart';
 
@@ -19,8 +20,8 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           title: 'Friday UI',
-          theme: AppTheme.lightTheme,
-          home: const BulletinScreen(),
+          theme: AppTheme.darkTheme,
+          home: const CalendarDayViewScreen(),
           debugShowCheckedModeBanner: false,
         );
       },

@@ -32,14 +32,15 @@ class _BulletinTabBarState extends State<BulletinTabBar> {
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           clipBehavior: Clip.none,
           decoration: BoxDecoration(
-            border: isSelected
-                ? Border(
-                    bottom: BorderSide(
-                      color: AppColors.textPrimary,
-                      width: 1.h,
-                    ),
-                  )
-                : null,
+            border:
+                isSelected
+                    ? Border(
+                      bottom: BorderSide(
+                        color: AppColors.textPrimary,
+                        width: 1.h,
+                      ),
+                    )
+                    : null,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -76,13 +77,14 @@ class _BulletinTabBarState extends State<BulletinTabBar> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: _tabs.asMap().entries.map((entry) {
-            int idx = entry.key;
-            String val = entry.value;
-            return _buildTab(val, _selectedIndex == idx, idx);
-          }).toList(),
+          children:
+              _tabs.asMap().entries.map((entry) {
+                int idx = entry.key;
+                String val = entry.value;
+                return _buildTab(val, _selectedIndex == idx, idx);
+              }).toList(),
         ),
       ),
     );
   }
-} 
+}
